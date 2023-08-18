@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import java.util.List;
 
 
 @Slf4j
@@ -27,7 +26,7 @@ public class CategoryController {
    private CategoryService categoryService;
         /**新增分类*/
     @PostMapping
-    public Result<String> save(@RequestBody Category category, HttpServletRequest request) {
+    public Result<String> save(@RequestBody Category category) {
         log.info("post /category  新增分类：{}",category);
         categoryService.save(category);
         return Result.success("新增分类成功");
@@ -46,7 +45,7 @@ public class CategoryController {
         return Result.success(categoryPage);
     }
 
-    /**g根据id删除分类*/
+    /**根据id删除分类*/
     @DeleteMapping
     public Result<String> delete(Long id) {
         categoryService.remove(id);
@@ -59,5 +58,18 @@ public class CategoryController {
         categoryService.updateById(category);
         log.info("完成一个分类的更新");
         return Result.success("分类更新成功");
+    }
+    /**根据条件查询分类数据*/
+    @GetMapping("/list")
+    public Result<List<Category>> list(Category category) {
+        //条件构造器
+        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        //添加查询条件
+        categoryLambdaQueryWrapper.eq(category.getType() != null,Category::getType,category.getType());
+        //添加排序条件
+        categoryLambdaQueryWrapper.orderByAsc(Category::getSort).orderByAsc(Category::getUpdateTime);
+        //向数据库查询
+        List<Category> list = categoryService.list(categoryLambdaQueryWrapper);
+        return  Result.success(list);
     }
 }

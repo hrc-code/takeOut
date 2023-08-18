@@ -26,5 +26,5 @@ mybatis-plus:
 
 #文件上传基本地址
 takeOut:
-  basePath: D:/img/
+  basePath: D:\img\
 

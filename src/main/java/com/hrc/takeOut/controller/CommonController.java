@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+/**文件的上传和下载*/
 @RestController
 @Slf4j
 @RequestMapping("/common")
@@ -29,7 +30,7 @@ public class CommonController {
      */
     @PostMapping("/upload")
     public Result<String> upload(MultipartFile file) {
-        log.info("common/upload:{}", file.toString());
+        log.info("common/upload");
         //获得文件原始名
         String originalFilename = file.getOriginalFilename();
         //获取文件类型
@@ -39,11 +40,17 @@ public class CommonController {
         String prefix = UUID.randomUUID().toString();
         String filename = prefix + postfix;
         File dir = new File(basePath);
+        //服务器存放图片的目录不存在就创建
         if (!dir.exists()) {
-            dir.mkdirs();
+            if (dir.mkdirs()) {
+                System.out.println("创建服务器存放图片目录成功");
+            } else {
+                System.out.println("服务器存放图片目录已经创建");
+            }
         }
 
         try {
+            //将文件存入服务器中
             file.transferTo(new File(basePath + filename));
         } catch (IOException e) {
             log.info(e.getMessage());
@@ -57,18 +64,20 @@ public class CommonController {
      */
     @GetMapping("/download")
     public void download(String name, HttpServletResponse response) throws IOException {
-        //文件输出地点
+        //输出流
         ServletOutputStream outputStream = response.getOutputStream();
-        //文件输入地点
+        //输入流
         FileInputStream fileInputStream = new FileInputStream(basePath + name);
+        response.setContentType("image/jpeg");
+        //读文件与写文件的固定格式
         int len;
         byte[] buff = new byte[1024];
-        while ((len = fileInputStream.read(new byte[1024])) != -1) {
+        while ((len = fileInputStream.read(buff)) != -1) {
             outputStream.write(buff, 0, len);
             outputStream.flush();
         }
-        response.setContentType("image/jpeg");
         log.info("图片下载完成");
+        //关闭资源，遵循先开后关原则
         fileInputStream.close();
         outputStream.close();
     }
