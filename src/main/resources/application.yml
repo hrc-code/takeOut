@@ -1,0 +1,30 @@
+
+spring:
+  application:
+    #应用名称
+    name: takeOut
+  datasource:
+    #使用德鲁伊连接池连接数据库
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/takeOut?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: root
+#服务端口号
+server:
+  port: 8080
+mybatis-plus:
+  configuration:
+    #开启驼峰命名法映射
+    map-underscore-to-camel-case: true
+    #日志输出实现类
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      #主键生成策略
+      id-type: assign_id
+
+#文件上传基本地址
+takeOut:
+  basePath: D:/img/
+
