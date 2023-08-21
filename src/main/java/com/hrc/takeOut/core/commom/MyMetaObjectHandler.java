@@ -14,19 +14,19 @@ import java.time.LocalDateTime;
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        log.info("公共字段自动填充 insert");
+        log.info("开始公共字段自动填充 insert");
         metaObject.setValue("createTime", LocalDateTime.now());
         metaObject.setValue("createUser", ThreadLocals.getCurrentId());
         metaObject.setValue("updateTime",LocalDateTime.now());
         metaObject.setValue("updateUser", ThreadLocals.getCurrentId());
-        log.info("公共字段填充之后的结果：{}", metaObject);
+        log.info("结束公共字段自动填充：insert");
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        log.info("公共字段自动填充 update");
+        log.info("开始公共字段自动填充 update");
         metaObject.setValue("updateTime",LocalDateTime.now());
         metaObject.setValue("updateUser", ThreadLocals.getCurrentId());
-        log.info("公共字段填充之后的结果：{}", metaObject);
+        log.info("借宿公共字段自动填充：update");
     }
 }

@@ -7,6 +7,7 @@ import com.hrc.takeOut.core.commom.Result;
 import com.hrc.takeOut.entity.Employee;
 import com.hrc.takeOut.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,14 +32,16 @@ public class EmployController {
      * 员工登录
      */
     @PostMapping("/login")
-    public Result<Employee> login(@org.jetbrains.annotations.NotNull @RequestBody Employee employee, HttpServletRequest request) {
+    public Result<Employee> login(@RequestBody Employee employee, HttpServletRequest request) {
         //多页面传来的用户密码进行md5加密
         String password = DigestUtils.md5DigestAsHex(employee.getPassword().getBytes());
         //创造查询条件--使用用户名进行查询
         LambdaQueryWrapper<Employee> employeeLambdaQueryWrapper = new LambdaQueryWrapper<>();
         LambdaQueryWrapper<Employee> eq = employeeLambdaQueryWrapper.eq(Employee::getUsername, employee.getUsername());
         //查询
+        log.info("开始员工查询");
         Employee emp = employeeService.getOne(eq);
+        log.info("结束员工查询");
         //判断是否登录成功
         if (emp == null) return Result.error("用户名错误");
         if (!emp.getPassword().equals(password)) return Result.error("密码错误");
@@ -98,7 +101,9 @@ public class EmployController {
         //将查询的结果按照更新时间降序
         employeeLambdaQueryWrapper.orderByDesc(Employee::getUpdateTime);
         //查询
+        log.info("开始员工信息分页查询");
         employeeService.page(employeePage, employeeLambdaQueryWrapper);
+        log.info("结束员工信息分页查询");
         return Result.success(employeePage);
     }
 
