@@ -7,6 +7,7 @@ import com.hrc.takeOut.core.commom.Result;
 import com.hrc.takeOut.entity.Employee;
 import com.hrc.takeOut.service.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -110,7 +111,7 @@ public class EmployController {
      * 根据id修改员工信息
      */
     @PutMapping
-    public Result<String> update(HttpServletRequest ignoredRequest, @RequestBody Employee employee) {
+    public Result<String> update(HttpServletRequest request, @RequestBody Employee employee) {
 
           /*  使用mp的全局处理字段进行赋值
           //修改员工信息更新时间
