@@ -4,10 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hrc.takeOut.commom.Result;
 import com.hrc.takeOut.dto.DishDto;
+import com.hrc.takeOut.entity.Category;
 import com.hrc.takeOut.entity.Dish;
+import com.hrc.takeOut.entity.DishFlavor;
 import com.hrc.takeOut.service.CategoryService;
+import com.hrc.takeOut.service.DishFlavorService;
 import com.hrc.takeOut.service.DishService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +34,8 @@ public class DishController {
         private DishService dishService;
         @Resource
         private CategoryService categoryService;
+        @Resource
+        private DishFlavorService dishFlavorService;
         /**新增菜品*/
         @PostMapping
         public Result<String>  save(@RequestBody DishDto dishDto) {
@@ -88,6 +94,45 @@ public class DishController {
         public Result<String>  update(@RequestBody DishDto dishDto) {
                 dishService.updateWithFlavor(dishDto);
                 return  Result.success("修改菜品成功");
+        }
+        /** 功能：根据条件查询对应菜品信息
+         * 表：菜品表+分类表+菜品口味表
+         *  参数 ： 分类id和菜品名*/
+        @GetMapping("/list")
+        public Result<List<DishDto>> list(Dish dish) {
+                log.info("开始调用根据条件查询对应菜品信息接口");
+                //条件构造器
+                LambdaQueryWrapper<Dish> dishLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                //根据菜品名进行模糊查询
+                dishLambdaQueryWrapper.like(StringUtils.isNotEmpty(dish.getName()),Dish::getName,dish.getName());
+                //根据分类id进行查询
+                dishLambdaQueryWrapper.eq(dish.getCategoryId() !=null,Dish::getCategoryId,dish.getCategoryId());
+                //查询起售状态的菜品
+                dishLambdaQueryWrapper.eq(Dish::getStatus,1);
+                log.info("开始批量查询--菜品表");
+                List<Dish> dishList = dishService.list(dishLambdaQueryWrapper);
+                log.info("结束批量查询---菜品表");
+                //为每个返回值补充信息
+                List<DishDto> dishDtoList = dishList.stream().map(dishTable -> {
+                        DishDto dishDto = new DishDto();
+                        BeanUtils.copyProperties(dishTable, dishDto);
+                        log.info("开始id查询--分类表");
+                        Category category = categoryService.getById(dishTable.getCategoryId());
+                        log.info("结束id查询--分类表");
+                        //补充分类名
+                        if (category != null)
+                                dishDto.setCategoryName(category.getName());
+                        log.info("开始批量查询--菜品口味表");
+                        LambdaQueryWrapper<DishFlavor> dishFlavorLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                        dishFlavorLambdaQueryWrapper.eq(DishFlavor::getDishId, dishTable.getId());
+                        List<DishFlavor> dishFlavorList = dishFlavorService.list(dishFlavorLambdaQueryWrapper);
+                        log.info("结束批量查询---菜品口味表");
+                        //补充菜品口味
+                        dishDto.setFlavors(dishFlavorList);
+                        return dishDto;
+                }).collect(Collectors.toList());
+                log.info("结束调用根据条件查询对应菜品信息接口");
+                return Result.success(dishDtoList);
         }
 }
 

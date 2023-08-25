@@ -7,8 +7,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
-/**新增菜品实体类
- * 菜品+菜品口味+菜品种类
+/** 菜品表+菜品口味表+分类表
  * */
 @EqualsAndHashCode(callSuper = true)
 @Data
