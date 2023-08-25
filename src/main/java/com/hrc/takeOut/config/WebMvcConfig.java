@@ -1,8 +1,7 @@
-package com.hrc.takeOut.core.config;
+package com.hrc.takeOut.config;
 
-import com.hrc.takeOut.core.commom.JacksonObjectMapper;
+import com.hrc.takeOut.commom.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.http11.filters.IdentityOutputFilter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;

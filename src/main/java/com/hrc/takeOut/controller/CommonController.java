@@ -1,6 +1,6 @@
 package com.hrc.takeOut.controller;
 
-import com.hrc.takeOut.core.commom.Result;
+import com.hrc.takeOut.commom.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

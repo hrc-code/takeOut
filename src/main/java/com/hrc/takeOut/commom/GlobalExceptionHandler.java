@@ -1,6 +1,6 @@
-package com.hrc.takeOut.core.commom;
+package com.hrc.takeOut.commom;
 
-import com.hrc.takeOut.core.exception.CustomException;
+import com.hrc.takeOut.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;

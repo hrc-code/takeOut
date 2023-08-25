@@ -2,7 +2,7 @@ package com.hrc.takeOut.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hrc.takeOut.core.commom.Result;
+import com.hrc.takeOut.commom.Result;
 import com.hrc.takeOut.entity.Category;
 import com.hrc.takeOut.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;

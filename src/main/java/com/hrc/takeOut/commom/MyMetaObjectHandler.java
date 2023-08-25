@@ -1,7 +1,7 @@
-package com.hrc.takeOut.core.commom;
+package com.hrc.takeOut.commom;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.hrc.takeOut.core.utils.ThreadLocals;
+import com.hrc.takeOut.utils.ThreadLocals;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;

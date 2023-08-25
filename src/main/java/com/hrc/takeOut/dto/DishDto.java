@@ -1,4 +1,4 @@
-package com.hrc.takeOut.core.dto;
+package com.hrc.takeOut.dto;
 
 import com.hrc.takeOut.entity.Dish;
 import com.hrc.takeOut.entity.DishFlavor;

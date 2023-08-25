@@ -1,4 +1,4 @@
-package com.hrc.takeOut.core.commom;
+package com.hrc.takeOut.commom;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

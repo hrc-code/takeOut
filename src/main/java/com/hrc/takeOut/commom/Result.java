@@ -1,4 +1,4 @@
-package com.hrc.takeOut.core.commom;
+package com.hrc.takeOut.commom;
 
 import lombok.Data;
 

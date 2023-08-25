@@ -1,4 +1,4 @@
-package com.hrc.takeOut.core.utils;
+package com.hrc.takeOut.utils;
 
 /**
  *  封装ThreadLocal类
