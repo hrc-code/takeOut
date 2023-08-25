@@ -2,8 +2,8 @@ package com.hrc.takeOut.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hrc.takeOut.core.commom.Result;
-import com.hrc.takeOut.core.dto.DishDto;
+import com.hrc.takeOut.commom.Result;
+import com.hrc.takeOut.dto.DishDto;
 import com.hrc.takeOut.entity.Dish;
 import com.hrc.takeOut.service.CategoryService;
 import com.hrc.takeOut.service.DishService;
@@ -38,9 +38,10 @@ public class DishController {
                 log.info("结束新增菜品");
                 return Result.success("新增菜品成功");
         }
-        /**菜品信息分页查询*/
+        /**菜品信息+分类名称分页查询*/
         @GetMapping("/page")
         public Result<Page<DishDto>> page(int page, int pageSize, String name) {
+                log.info("开始菜品管理的分页查询");
                 //分页查询构造器对象
                 Page<Dish> dishPage = new Page<>(page, pageSize);
                 Page<DishDto> dishDtoPage = new Page<>();
@@ -60,18 +61,19 @@ public class DishController {
                 //获取查询到的菜品数据
                 List<Dish> records = dishPage.getRecords();
                 //添加种类名称
+                DishDto dishDto = new DishDto();
                 List<DishDto> dishDtoList = records.stream().map(dish -> {
-                        DishDto dishDto = new DishDto();
                         BeanUtils.copyProperties(dish, dishDto);
                         //获取种类名称
                         Long categoryId = dish.getCategoryId();
-                        log.info("开始菜品名称查询");
+                        log.info("开始分类名称查询");
                         String categoryName = categoryService.getById(categoryId).getName();
-                        log.info("结束菜品名称查询");
+                        log.info("结束分类名称查询");
                         dishDto.setCategoryName(categoryName);
                         return dishDto;
                 }).collect(Collectors.toList());
                 dishDtoPage.setRecords(dishDtoList);
+                log.info("完成菜品管理的分页查询");
                 return Result.success(dishDtoPage);
         }
 
