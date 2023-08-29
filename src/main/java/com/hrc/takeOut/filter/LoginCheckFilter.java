@@ -15,7 +15,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * 检查用户是否登录
+ * */
 @Slf4j
 @WebFilter(filterName = "loginCheckFilter", urlPatterns = "/*")
 public class LoginCheckFilter implements Filter {
@@ -39,7 +41,9 @@ public class LoginCheckFilter implements Filter {
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",
-                "/front/**"
+                "/front/**",
+                "/user/sendMsg",
+                "/user/login"
         };
 
         //判断请求uri是否为需要过滤的uri
@@ -59,11 +63,16 @@ public class LoginCheckFilter implements Filter {
             filterChain.doFilter(request, response);
             return;
         }
-
+        if (request.getSession().getAttribute("user") != null) {
+            log.info("已登录 本次放行uri：{}",requestURI);
+            Long userId = (Long) request.getSession().getAttribute("user");
+            ThreadLocals.setCurrentId(userId);
+            filterChain.doFilter(request, response);
+            return;
+        }
         log.info("用户未登录");
         //返回特定信息让前端知道该用户未登录
         response.getWriter().write(JSON.toJSONString(Result.error("NOTLOGIN")));
-
     }
 
     private static boolean check(String[] uris, String requestURI) {
