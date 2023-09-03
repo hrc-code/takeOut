@@ -6,7 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-
+/** 员工表*/
 @Data
 public class Employee {
         private Long id;

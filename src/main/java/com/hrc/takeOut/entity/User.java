@@ -1,7 +1,7 @@
 package com.hrc.takeOut.entity;
 
 import lombok.Data;
-
+/** 用户表*/
 @Data
 public class User {
     private Long id;
