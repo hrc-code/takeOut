@@ -1,7 +1,5 @@
 package com.hrc.takeOut.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -18,6 +16,5 @@ public class ShoppingCart {
     private String dishFlavor;
     private Integer number;
     private Double amount;
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 }

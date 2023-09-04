@@ -98,4 +98,15 @@ public class SetmealController {
         log.info("结束调用删除套餐接口");
         return Result.success("删除套餐成功");
     }
+    /**  查询套餐*/
+    @GetMapping("/list")
+    public Result<List<Setmeal>> get(Setmeal setmeal) {
+        //select * from setmeal s where category_id = s.category_id and status = s.status and order by updateTime desc;
+        LambdaQueryWrapper<Setmeal> setmealLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        setmealLambdaQueryWrapper.eq(Setmeal::getCategoryId, setmeal.getCategoryId());
+        setmealLambdaQueryWrapper.eq(Setmeal::getStatus, setmeal.getStatus());
+        setmealLambdaQueryWrapper.orderByDesc(Setmeal::getUpdateTime);
+        List<Setmeal> setmealList = setmealService.list(setmealLambdaQueryWrapper);
+        return Result.success(setmealList);
+    }
 }
