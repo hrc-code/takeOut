@@ -2,6 +2,7 @@ package com.hrc.takeOut.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /** 购物车*/
@@ -15,6 +16,6 @@ public class ShoppingCart {
     private String image;
     private String dishFlavor;
     private Integer number;
-    private Double amount;
+    private BigDecimal amount;
     private LocalDateTime createTime;
 }

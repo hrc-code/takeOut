@@ -2,6 +2,8 @@ package com.hrc.takeOut.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /** 订单明细*/
 @Data
 public class OrderDetail {
@@ -13,5 +15,5 @@ public class OrderDetail {
     private String image;
     private String dishFlavor;
     private Integer number;
-    private Double amount;
+    private BigDecimal amount;
 }

@@ -2,6 +2,7 @@ package com.hrc.takeOut.entity;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /** 订单*/
@@ -15,7 +16,7 @@ public class Orders {
     private LocalDateTime orderTime;
     private LocalDateTime checkoutTime;
     private Integer payMethod;
-    private Double amount;
+    private BigDecimal amount;
     private String remark;
     private String phone;
     private String address;
