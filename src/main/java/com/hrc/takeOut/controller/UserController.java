@@ -7,6 +7,7 @@ import com.hrc.takeOut.service.UserService;
 import com.hrc.takeOut.utils.ValidateCodeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
@@ -23,6 +25,8 @@ import java.util.Objects;
 public class UserController {
     @Resource
     private UserService userService;
+    @Resource
+    private RedisTemplate redisTemplate;
     /* 发送手机短信验证**/
     @PostMapping("/sendMsg")
     public Result<String> sendMsg(@RequestBody User user, HttpSession session) {
@@ -34,7 +38,8 @@ public class UserController {
             String code = ValidateCodeUtils.generateValidateCode4String(4);
             log.info("验证码：{}",code);
             //确保用户已经获得验证码，便于登录验证
-            session.setAttribute(phone, code);
+//            session.setAttribute(phone, code);
+            redisTemplate.opsForValue().set(phone, code, 5, TimeUnit.MINUTES);
             return Result.success("手机验证码短信发送成功");
         }
         return  Result.error("手机号码不能为空");
@@ -49,9 +54,10 @@ public class UserController {
         //获取验证码
         String code = map.get("code");
         //从Session中获取保存的验证码
-        Object codeInSession = session.getAttribute(phone);
+//        Object codeInSession = session.getAttribute(phone);
+        Object codeInSession = redisTemplate.opsForValue().get(phone);
         if (codeInSession != null && codeInSession.equals(code)) {
-            //判断是否为新用户
+            //判断是否为新用户  select * from user where phone = ?
             LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
             userLambdaQueryWrapper.eq(User::getPhone, phone);
             log.info("开始查询---user表");
@@ -63,6 +69,7 @@ public class UserController {
                 user.setPhone(phone);
                 user.setStatus(1);
                 log.info("开始注册新用户---user表");
+                //insert into user (id, name, phone, sex, id_number, avatar, status) values ()
                 userService.save(user);
                 log.info("结束注册新用户---user表");
             }

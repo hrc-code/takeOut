@@ -7,6 +7,7 @@ import com.hrc.takeOut.dto.SetmealDto;
 import com.hrc.takeOut.entity.Category;
 import com.hrc.takeOut.entity.Setmeal;
 import com.hrc.takeOut.entity.SetmealDish;
+import com.hrc.takeOut.exception.CustomException;
 import com.hrc.takeOut.service.CategoryService;
 import com.hrc.takeOut.service.SetmealDishService;
 import com.hrc.takeOut.service.SetmealService;
@@ -15,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /** 套餐管理*/
@@ -100,7 +103,7 @@ public class SetmealController {
     }
     /**  查询套餐*/
     @GetMapping("/list")
-    public Result<List<Setmeal>> get(Setmeal setmeal) {
+    public Result<List<Setmeal>> list(Setmeal setmeal) {
         //select * from setmeal s where category_id = s.category_id and status = s.status and order by updateTime desc;
         LambdaQueryWrapper<Setmeal> setmealLambdaQueryWrapper = new LambdaQueryWrapper<>();
         setmealLambdaQueryWrapper.eq(Setmeal::getCategoryId, setmeal.getCategoryId());
@@ -108,5 +111,15 @@ public class SetmealController {
         setmealLambdaQueryWrapper.orderByDesc(Setmeal::getUpdateTime);
         List<Setmeal> setmealList = setmealService.list(setmealLambdaQueryWrapper);
         return Result.success(setmealList);
+    }
+    /** 根据id查询套餐*/
+    @GetMapping("/{id}")
+    public Result<Setmeal> getById(@PathVariable Long id) {
+        if (Objects.isNull(id))
+            new CustomException("参数异常");
+        log.info("开始查询套餐");
+        Setmeal setmeal = setmealService.getById(id);
+        log.info("结束查询套餐");
+        return Result.success(setmeal);
     }
 }
