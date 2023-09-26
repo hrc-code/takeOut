@@ -31,4 +31,10 @@ public class GlobalExceptionHandler {
            log.error(ex.getMessage());
            return Result.error(ex.getMessage());
        }
+       /** 处理文件异常*/
+       @ExceptionHandler(FileNotFoundException.class)
+    public Result<String> exceptionHandler(FileNotFoundException ex) {
+                log.error(ex.getMessage());
+                return Result.error("图片加载错误");
+       }
 }
