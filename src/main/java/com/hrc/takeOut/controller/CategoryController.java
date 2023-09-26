@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
-
+/** 分类管理*/
 @Slf4j
 @RestController
 @RequestMapping("/category")
@@ -69,7 +69,9 @@ public class CategoryController {
         //添加排序条件
         categoryLambdaQueryWrapper.orderByAsc(Category::getSort).orderByAsc(Category::getUpdateTime);
         //向数据库查询
+        log.info("开始批量查询分类表");
         List<Category> list = categoryService.list(categoryLambdaQueryWrapper);
+        log.info("结束批量查询分类表");
         return  Result.success(list);
     }
 }

@@ -39,6 +39,7 @@ public class AddressBookController {
         String msg = aDefault.getMsg();
         AddressBook data = aDefault.getData();
         if (msg == null) {
+            //TODO (hrc,2023/9/22,0:03) 消除魔法值
              data.setIsDefault("0");
              // update address_book set * = ? where id = ?
             addressBookService.updateById(data);
@@ -46,6 +47,7 @@ public class AddressBookController {
         Long addressBookId = addressBook.getId();
         //select * from address_book where id = ?
         AddressBook addressBook1 = addressBookService.getById(addressBookId);
+        //TODO (hrc,2023/9/22,0:04) 消除魔法值
         addressBook1.setIsDefault("1");
         //update address_book set * = ?
         addressBookService.updateById(addressBook1);
@@ -64,6 +66,7 @@ public class AddressBookController {
         // select * from  table  where user_id = ? and is_default = 1;
         LambdaQueryWrapper<AddressBook> addressBookLambdaQueryWrapper = new LambdaQueryWrapper<>();
         addressBookLambdaQueryWrapper.eq(AddressBook::getUserId, ThreadLocals.getCurrentId());
+        //TODO (hrc,2023/9/22,0:04) 消除魔法值
         addressBookLambdaQueryWrapper.eq(AddressBook::getIsDefault, 1);
         AddressBook addressBook = addressBookService.getOne(addressBookLambdaQueryWrapper);
         if (addressBook != null) {

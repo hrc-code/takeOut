@@ -34,7 +34,7 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
 
         //定义需要过滤的uri  静态资源需要放行和登录与退出请求
-        /** 错误❌
+        /**todo 错误❌
          * 静态资源必须放行，否则前端无法显示页面
          * */
         String[] uris = new String[]{

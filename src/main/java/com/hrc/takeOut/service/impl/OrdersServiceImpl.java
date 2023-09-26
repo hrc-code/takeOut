@@ -71,6 +71,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         orders.setId(orderId);
         orders.setOrderTime(LocalDateTime.now());
         orders.setCheckoutTime(LocalDateTime.now());
+        //TODO (hrc,2023/9/22,0:03) 消除魔法值
         orders.setStatus(2);
         orders.setAmount(new BigDecimal(amount.get()));
         orders.setUserId(ThreadLocals.getCurrentId());

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLIntegrityConstraintViolationException;
 /**全局处理异常*/
 @RestControllerAdvice(annotations = {Controller.class, RestController.class})
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
 
            return Result.error("sql未知错误");
        }
-
+        /** 处理客户端异常*/
        @ExceptionHandler(CustomException.class)
     public Result<String> exceptionHandler(CustomException ex) {
            log.error(ex.getMessage());
