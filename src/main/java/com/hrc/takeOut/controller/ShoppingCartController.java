@@ -78,7 +78,7 @@ public class ShoppingCartController {
             shoppingCarteOne.setNumber(number - 1);
             shoppingCartService.updateById(shoppingCarteOne);
         } else {
-            shoppingCartService.removeById(shoppingCarteOne);
+            shoppingCartService.removeById(number);
         }
         return  Result.success("减少数量成功");
     }
