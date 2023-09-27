@@ -27,6 +27,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         log.info("开始公共字段自动填充 update");
         metaObject.setValue("updateTime",LocalDateTime.now());
         metaObject.setValue("updateUser", ThreadLocals.getCurrentId());
-        log.info("借宿公共字段自动填充：update");
+        log.info("结束公共字段自动填充：update");
     }
 }

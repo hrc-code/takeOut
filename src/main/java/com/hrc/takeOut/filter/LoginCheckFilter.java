@@ -1,6 +1,6 @@
 package com.hrc.takeOut.filter;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.hrc.takeOut.commom.Result;
 import com.hrc.takeOut.utils.ThreadLocals;
 import lombok.extern.slf4j.Slf4j;
@@ -34,20 +34,25 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
 
         //定义需要过滤的uri  静态资源需要放行和登录与退出请求
-        /** 错误❌
+        /**todo 错误❌
          * 静态资源必须放行，否则前端无法显示页面
          * */
-        String[] uris = new String[]{
+        String[] urls = new String[]{
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",
                 "/front/**",
+                "/common/**",
                 "/user/sendMsg",
-                "/user/login"
+                "/user/login",
+                "/doc.html",
+                "/webjars/**",
+                "/swagger-resources",
+                "/v2/api-docs"
         };
 
         //判断请求uri是否为需要过滤的uri
-        boolean check = check(uris, requestURI);
+        boolean check = check(urls, requestURI);
         //如果是需要过滤的直接过滤不拦截
         if (check) {
             log.info("本次放行uri:{}", requestURI);
@@ -73,6 +78,7 @@ public class LoginCheckFilter implements Filter {
         log.info("用户未登录");
         //返回特定信息让前端知道该用户未登录
         response.getWriter().write(JSON.toJSONString(Result.error("NOTLOGIN")));
+
     }
 
     private static boolean check(String[] uris, String requestURI) {

@@ -22,7 +22,7 @@ import java.util.UUID;
 @RequestMapping("/common")
 public class CommonController {
 
-    @Value("${takeOut.basePath}")
+    @Value("${takeOut.path}")
     private String basePath;
 
     /**

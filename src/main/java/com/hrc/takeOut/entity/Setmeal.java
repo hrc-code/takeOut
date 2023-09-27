@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-
+/** 套餐*/
 @Data
 public class Setmeal {
     private Long id;
