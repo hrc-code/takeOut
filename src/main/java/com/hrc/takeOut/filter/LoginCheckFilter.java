@@ -37,17 +37,22 @@ public class LoginCheckFilter implements Filter {
         /**todo 错误❌
          * 静态资源必须放行，否则前端无法显示页面
          * */
-        String[] uris = new String[]{
+        String[] urls = new String[]{
                 "/employee/login",
                 "/employee/logout",
                 "/backend/**",
                 "/front/**",
+                "/common/**",
                 "/user/sendMsg",
-                "/user/login"
+                "/user/login",
+                "/doc.html",
+                "/webjars/**",
+                "/swagger-resources",
+                "/v2/api-docs"
         };
 
         //判断请求uri是否为需要过滤的uri
-        boolean check = check(uris, requestURI);
+        boolean check = check(urls, requestURI);
         //如果是需要过滤的直接过滤不拦截
         if (check) {
             log.info("本次放行uri:{}", requestURI);
