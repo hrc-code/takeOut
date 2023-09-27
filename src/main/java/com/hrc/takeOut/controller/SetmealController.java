@@ -13,6 +13,8 @@ import com.hrc.takeOut.service.SetmealDishService;
 import com.hrc.takeOut.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +44,7 @@ public class SetmealController {
 
     /** 新增套餐*/
     @PostMapping
+    @CacheEvict(value = "setmealCache", allEntries = true)
     public Result<String> save(@RequestBody SetmealDto setmealDto) {
         log.info("开始调用新增套餐接口");
         setmealService.saveWithDish(setmealDto);
@@ -95,6 +98,7 @@ public class SetmealController {
      * 表：套餐表+套餐菜品关系表
      * 参数： 套餐id*/
     @DeleteMapping
+    @CacheEvict(value = "setmealCache", allEntries = true)
     public Result<String> delete(@RequestParam List<Long> ids) {
         log.info("开始调用删除套餐接口");
         setmealService.removeWithDish(ids);
@@ -103,6 +107,7 @@ public class SetmealController {
     }
     /**  查询套餐*/
     @GetMapping("/list")
+    @Cacheable(value = "setmealCache", key = "#setmeal.categoryId + '_' + #setmeal.status")
     public Result<List<Setmeal>> list(Setmeal setmeal) {
         //select * from setmeal s where category_id = s.category_id and status = s.status and order by updateTime desc;
         LambdaQueryWrapper<Setmeal> setmealLambdaQueryWrapper = new LambdaQueryWrapper<>();
