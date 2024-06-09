@@ -1,0 +1,47 @@
+mybatis-plus:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        map-underscore-to-camel-case: true
+    global-config:
+        db-config:
+            id-type: ASSIGN_ID
+server:
+    port: 8080
+spring:
+    application:
+        name: take_out
+    cache:
+        redis:
+            time-to-live: 1800000
+    main:
+        allow-bean-definition-overriding: true
+    redis:
+        database: 0
+        host: 127.0.0.1
+        password: 'null'
+        port: 6379
+    shardingsphere:
+        datasource:
+            master:
+                driver-class-name: com.mysql.cj.jdbc.Driver
+                password: GvYAEmQFbGMgEjpF
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://mysql.sqlpub.com:3306/huthrc0?characterEncoding=utf-8
+                username: huthrc0
+            names: master,slave
+            slave:
+                driver-class-name: com.mysql.cj.jdbc.Driver
+                password: GvYAEmQFbGMgEjpF
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://mysql.sqlpub.com:3306/huthrc0?characterEncoding=utf-8
+                username: huthrc0
+        masterslave:
+            load-balance-algorithm-type: round_robin
+            master-data-source-name: master
+            name: dataSource
+            slave-data-source-names: slave
+        props:
+            sql:
+                show: true
+takeOut:
+    path: D:img

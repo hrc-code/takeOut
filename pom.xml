@@ -119,4 +119,37 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+            <profile>
+                <id>use-aliyun-maven</id>
+                <activation>
+                    <!-- 可以在这里设置自动激活的条件，例如根据环境变量 -->
+                </activation>
+                <repositories>
+                    <repository>
+                        <id>aliyun</id>
+                        <url>https://maven.aliyun.com/repository/public</url>
+                        <releases>
+                            <enabled>true</enabled>
+                        </releases>
+                        <snapshots>
+                            <enabled>false</enabled>
+                        </snapshots>
+                    </repository>
+                </repositories>
+                <pluginRepositories>
+                    <pluginRepository>
+                        <id>aliyun-plugin</id>
+                        <url>https://maven.aliyun.com/repository/public</url>
+                        <releases>
+                            <enabled>true</enabled>
+                        </releases>
+                        <snapshots>
+                            <enabled>false</enabled>
+                        </snapshots>
+                    </pluginRepository>
+                </pluginRepositories>
+            </profile>
+        </profiles>
 </project>
