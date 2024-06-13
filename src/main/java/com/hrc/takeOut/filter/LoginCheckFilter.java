@@ -34,9 +34,9 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
 
         //定义需要过滤的uri  静态资源需要放行和登录与退出请求
-        /**todo 错误❌
-         * 静态资源必须放行，否则前端无法显示页面
-         * */
+        /*todo 错误❌
+          静态资源必须放行，否则前端无法显示页面
+          */
         String[] urls = new String[]{
                 "/employee/login",
                 "/employee/logout",
@@ -78,13 +78,17 @@ public class LoginCheckFilter implements Filter {
         log.info("用户未登录");
         //返回特定信息让前端知道该用户未登录
         response.getWriter().write(JSON.toJSONString(Result.error("NOTLOGIN")));
+        // 用户未登录，重定向到登录页面
+        String loginURL = "/backend/page/login/login.html"; // 登录页面的URL
+        response.sendRedirect( loginURL);
 
     }
 
     private static boolean check(String[] uris, String requestURI) {
         for (String uri : uris) {
-            if (PATH_MATCHER.match(uri, requestURI))
+            if (PATH_MATCHER.match(uri, requestURI)) {
                 return true;
+            }
         }
         return false;
     }
