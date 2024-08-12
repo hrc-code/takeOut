@@ -1,7 +1,7 @@
-package com.hrc.takeOut.dto;
+package com.hrc.takeOut.model.dto;
 
-import com.hrc.takeOut.entity.Dish;
-import com.hrc.takeOut.entity.DishFlavor;
+import com.hrc.takeOut.model.entity.Dish;
+import com.hrc.takeOut.model.entity.DishFlavor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

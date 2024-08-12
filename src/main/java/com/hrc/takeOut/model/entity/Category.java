@@ -1,24 +1,19 @@
-package com.hrc.takeOut.entity;
+package com.hrc.takeOut.model.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-/** 员工表*/
+/* 分类*/
 @Data
-public class Employee {
+public class Category {
         private Long id;
+        private Integer type;
         private String name;
-        private String  username;
-        private String password;
-        private String phone;
-        private String sex;
-        private String idNumber;
-        private Integer status;
+        private Integer sort;
         @TableField(fill = FieldFill.INSERT)
-        private LocalDateTime  createTime;
+        private LocalDateTime createTime;
         @TableField(fill = FieldFill.INSERT_UPDATE)
         private LocalDateTime updateTime;
         @TableField(fill = FieldFill.INSERT)

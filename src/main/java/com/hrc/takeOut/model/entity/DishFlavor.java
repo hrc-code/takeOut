@@ -1,25 +1,23 @@
-package com.hrc.takeOut.entity;
+package com.hrc.takeOut.model.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-/** 套餐菜品关系表*/
+
+/**菜品口味*/
 @Data
-public class SetmealDish {
+public class DishFlavor {
     private Long id;
-    private Long setmealId;
-    private String dishId;
+    private Long dishId;
     private String name;
-    private Double price;
-    private Integer copies;
-    private Integer sort;
+    private String value;
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-    @TableField(fill =FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private Long createUser;
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;

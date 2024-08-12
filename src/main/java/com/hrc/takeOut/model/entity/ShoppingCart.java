@@ -1,14 +1,15 @@
-package com.hrc.takeOut.entity;
+package com.hrc.takeOut.model.entity;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-/** 订单明细*/
+/** 购物车*/
 @Data
-public class OrderDetail {
+public class ShoppingCart {
     private Long id;
-    private Long orderId;
+    private Long userId;
     private Long dishId;
     private Long setmealId;
     private String name;
@@ -16,4 +17,5 @@ public class OrderDetail {
     private String dishFlavor;
     private Integer number;
     private BigDecimal amount;
+    private LocalDateTime createTime;
 }

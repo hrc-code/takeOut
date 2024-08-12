@@ -2,7 +2,7 @@ package com.hrc.takeOut.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.hrc.takeOut.commom.Result;
-import com.hrc.takeOut.entity.User;
+import com.hrc.takeOut.model.entity.User;
 import com.hrc.takeOut.service.UserService;
 import com.hrc.takeOut.utils.ValidateCodeUtils;
 import lombok.extern.slf4j.Slf4j;

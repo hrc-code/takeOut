@@ -2,9 +2,9 @@ package com.hrc.takeOut.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hrc.takeOut.dto.DishDto;
-import com.hrc.takeOut.entity.Dish;
-import com.hrc.takeOut.entity.DishFlavor;
+import com.hrc.takeOut.model.dto.DishDto;
+import com.hrc.takeOut.model.entity.Dish;
+import com.hrc.takeOut.model.entity.DishFlavor;
 import com.hrc.takeOut.mapper.DishMapper;
 import com.hrc.takeOut.service.DishFlavorService;
 import com.hrc.takeOut.service.DishService;

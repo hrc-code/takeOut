@@ -1,7 +1,7 @@
-package com.hrc.takeOut.dto;
+package com.hrc.takeOut.model.dto;
 
-import com.hrc.takeOut.entity.Setmeal;
-import com.hrc.takeOut.entity.SetmealDish;
+import com.hrc.takeOut.model.entity.Setmeal;
+import com.hrc.takeOut.model.entity.SetmealDish;
 import lombok.Data;
 
 import java.util.List;

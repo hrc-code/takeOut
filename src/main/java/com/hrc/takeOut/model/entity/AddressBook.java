@@ -1,4 +1,4 @@
-package com.hrc.takeOut.entity;
+package com.hrc.takeOut.model.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

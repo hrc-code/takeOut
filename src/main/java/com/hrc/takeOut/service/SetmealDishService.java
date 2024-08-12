@@ -1,7 +1,7 @@
 package com.hrc.takeOut.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hrc.takeOut.entity.SetmealDish;
+import com.hrc.takeOut.model.entity.SetmealDish;
 
 public interface SetmealDishService extends IService<SetmealDish> {
 }

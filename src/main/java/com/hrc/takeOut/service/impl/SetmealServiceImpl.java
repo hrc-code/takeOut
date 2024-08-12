@@ -2,9 +2,9 @@ package com.hrc.takeOut.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hrc.takeOut.dto.SetmealDto;
-import com.hrc.takeOut.entity.Setmeal;
-import com.hrc.takeOut.entity.SetmealDish;
+import com.hrc.takeOut.model.dto.SetmealDto;
+import com.hrc.takeOut.model.entity.Setmeal;
+import com.hrc.takeOut.model.entity.SetmealDish;
 import com.hrc.takeOut.exception.CustomException;
 import com.hrc.takeOut.mapper.SetmealMapper;
 import com.hrc.takeOut.service.SetmealDishService;

@@ -1,8 +1,8 @@
 package com.hrc.takeOut.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.hrc.takeOut.dto.SetmealDto;
-import com.hrc.takeOut.entity.Setmeal;
+import com.hrc.takeOut.model.dto.SetmealDto;
+import com.hrc.takeOut.model.entity.Setmeal;
 
 import java.util.List;
 
