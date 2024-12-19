@@ -6,7 +6,7 @@ mybatis-plus:
         db-config:
             id-type: ASSIGN_ID
 server:
-    port: ${SERVER.PORT}
+    port: ${SERVER_PORT}
 spring:
     application:
         name: take_out
@@ -24,17 +24,17 @@ spring:
         datasource:
             master:
                 driver-class-name: com.mysql.cj.jdbc.Driver
-                password: ${SPRING.SHARDINGSPHERE.DATASOURCE.MASTER.PASSWORD}
+                password: ${SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_PASSWORD}
                 type: com.alibaba.druid.pool.DruidDataSource
-                url: ${SPRING.SHARDINGSPHERE.DATASOURCE.MASTER.URL}
-                username: ${SPRING.SHARDINGSPHERE.DATASOURCE.MASTER.USERNAME}
+                url: ${SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_URL}
+                username: ${SPRING_SHARDINGSPHERE_DATASOURCE_MASTER_USERNAME}
             names: master,slave
             slave:
                 driver-class-name: com.mysql.cj.jdbc.Driver
-                password: ${SPRING.SHARDINGSPHERE.DATASOURCE.SLAVE.PASSWORD}
+                password: ${SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE_PASSWORD}
                 type: com.alibaba.druid.pool.DruidDataSource
-                url: ${SPRING.SHARDINGSPHERE.DATASOURCE.SLAVE.URL}
-                username: ${SPRING.SHARDINGSPHERE.DATASOURCE.SLAVE.USERNAME}
+                url: ${SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE_URL}
+                username: ${SPRING_SHARDINGSPHERE_DATASOURCE_SLAVE_USERNAME}
         masterslave:
             load-balance-algorithm-type: round_robin
             master-data-source-name: master
