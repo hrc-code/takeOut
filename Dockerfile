@@ -1,5 +1,5 @@
 # 指定基础镜像
-FROM openjdk:8-jdk-alpine as builder
+FROM openjdk:17-jdk-slim as builder
 
 #标签
 LABEL authors="hrc"
